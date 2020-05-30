@@ -1,0 +1,16 @@
+server:
+  port: 7001
+
+spring:
+  application:
+    name: eureka-server
+
+eureka:
+  instance: #eureka实例定义
+    hostname: localhost # 定义eureka所在的主机名称
+  client:
+    fetch-registry: false # 是否从eureka拉取注册信息，默认为true
+    register-with-eureka: false # 是否将自己注册到Eureka Service，默认为true
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka
+      # 设置与Eureka交互的地址，默认为http://localhost:8761/eureka，多个地址可用英文逗号分隔

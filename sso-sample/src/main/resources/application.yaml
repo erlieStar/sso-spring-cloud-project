@@ -1,0 +1,11 @@
+server:
+  port: 7001
+
+spring:
+  application:
+    name: sso-sample
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:7001/eureka

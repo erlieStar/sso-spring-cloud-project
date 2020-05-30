@@ -2,13 +2,17 @@ package com.javashitang.sso.server.service.inf;
 
 import com.javashitang.tool.OperStatus;
 
+import javax.servlet.http.HttpServletResponse;
+
 /**
  * @author lilimin
  * @since 2020-05-29
  */
 public interface TokenService {
 
-    OperStatus login();
+    OperStatus login(String username, String password, HttpServletResponse response);
 
-    OperStatus logout();
+    OperStatus logout(String token);
+
+    OperStatus checkAuth(String token);
 }
