@@ -44,7 +44,7 @@
             targetPackage     指定生成的model生成所在的包名
             targetProject     指定在该项目下所在的路径
         -->
-        <javaModelGenerator targetPackage="com.souche.super2.car.crm.domain" targetProject="./src/main/java">
+        <javaModelGenerator targetPackage="com.javashitang.sso.server.po" targetProject="./src/main/java">
             <!-- 是否允许子包，即targetPackage.schemaName.tableName -->
             <property name="enableSubPackages" value="false"/>
             <!-- 是否对model添加 构造函数 -->
@@ -67,45 +67,15 @@
         -->
 
         <!-- targetPackage：mapper接口dao生成的位置 -->
-        <javaClientGenerator type="XMLMAPPER" targetPackage="com.souche.super2.car.crm.dao" targetProject="./src/main/java">
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.javashitang.sso.server.dao" targetProject="./src/main/java">
             <!-- enableSubPackages:是否让schema作为包的后缀 -->
             <property name="enableSubPackages" value="false" />
         </javaClientGenerator>
 
 
         <!--tableName表名，domainObjectName生成Java类的类名，enableCountByExample是否可以通过对象查数量,其他类似-->
-        <!--用这个配置-->
-        <!--<table tableName="student" domainObjectName="Student" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">-->
-        <!--<columnOverride column="create_time" javaType="java.time.LocalDateTime"/>-->
-        <!--</table>-->
-        <table tableName="aut_funmodel" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-        </table>
-
-        <table tableName="aut_role" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-        </table>
-
-        <table tableName="aut_role_fun_map" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-        </table>
-
-        <table tableName="aut_user_role_map" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-        </table>
 
         <table tableName="user_info" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-        </table>
-
-        <table tableName="car_source_info" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-        </table>
-
-        <table tableName="car_source_follow" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-        </table>
-
-        <table tableName="car_trader_info" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-        </table>
-
-        <table tableName="operator_log" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-        </table>
-
-        <table tableName="car_trader_follow" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
         </table>
 
     </context>
