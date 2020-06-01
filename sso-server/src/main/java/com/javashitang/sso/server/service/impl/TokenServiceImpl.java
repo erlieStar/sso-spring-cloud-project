@@ -6,11 +6,13 @@ import com.javashitang.sso.server.service.inf.TokenService;
 import com.javashitang.tool.MD5Util;
 import com.javashitang.tool.OperStatus;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
+import java.time.LocalDateTime;
 import java.util.Random;
 
 /**
@@ -38,7 +40,11 @@ public class TokenServiceImpl implements TokenService {
         if (!userInfo.getPassword().equals(MD5Util.getMd5Str(password))) {
             return OperStatus.newError("用户名或密码错误");
         }
-        String token = null;
+        String token = this.genToken(username);
+        UserInfo update = new UserInfo();
+        update.setId(userInfo.getId());
+        update.setTokenExpire(LocalDateTime.now().plusHours(TOKEN_EXPIRE_HOUR));
+        userInfoMapper.updateByPrimaryKeySelective(update);
         this.setCookie(TOKEN_EXPIRE_HOUR * 1000, token, response);
         return OperStatus.newSuccess();
     }

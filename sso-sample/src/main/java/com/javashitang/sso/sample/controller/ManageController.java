@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2020-05-30
  */
 @RestController
+@RequestMapping("manage")
 public class ManageController {
 
     @RequestMapping("getInfo")

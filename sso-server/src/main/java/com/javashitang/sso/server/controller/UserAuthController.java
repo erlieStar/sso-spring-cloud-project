@@ -1,4 +1,4 @@
-package com.javashitang.sso.server.controller.api;
+package com.javashitang.sso.server.controller;
 
 import com.javashitang.sso.server.service.inf.TokenService;
 import com.javashitang.tool.OperStatus;
@@ -41,6 +41,9 @@ public class UserAuthController {
         return tokenService.logout(token);
     }
 
+    /**
+     * 通过token验证用户权限
+     */
     @RequestMapping("checkAuth")
     public OperStatus checkAuth(@RequestParam("token") String token) {
         if (StringUtils.isBlank(token)) {

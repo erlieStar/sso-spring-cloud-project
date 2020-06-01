@@ -35,13 +35,15 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
             if (StringUtils.isEmpty(tokenValue)) {
                 ResponseWrite.writeResult(response, OperStatus.newError("获取不到登陆用的cookie"));
             } else {
+                // 这里的result可以放用户的信息
                 OperStatus result = ssoServerClient.checkAuth(tokenValue);
                 if (!result.isSuccess()) {
                     ResponseWrite.writeResult(response, result);
                 }
+                return true;
             }
         } else {
-            response.sendRedirect("");
+            ResponseWrite.writeResult(response, OperStatus.newError("获取不到登陆用的cookie"));
             return false;
         }
         return false;
