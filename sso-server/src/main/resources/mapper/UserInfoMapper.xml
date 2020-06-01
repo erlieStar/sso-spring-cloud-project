@@ -4,7 +4,6 @@
   <resultMap id="BaseResultMap" type="com.javashitang.sso.server.po.UserInfo">
     <constructor>
       <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="user_id" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="username" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="password" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="token" javaType="java.lang.String" jdbcType="VARCHAR" />
@@ -14,7 +13,7 @@
     </constructor>
   </resultMap>
   <sql id="Base_Column_List">
-    id, user_id, username, password, token, token_expire, create_time, update_time
+    id, username, password, token, token_expire, create_time, update_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -27,21 +26,18 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.javashitang.sso.server.po.UserInfo">
-    insert into user_info (id, user_id, username, 
-      password, token, token_expire, 
-      create_time, update_time)
-    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, 
-      #{password,jdbcType=VARCHAR}, #{token,jdbcType=VARCHAR}, #{tokenExpire,jdbcType=TIMESTAMP}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+    insert into user_info (id, username, password, 
+      token, token_expire, create_time, 
+      update_time)
+    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{token,jdbcType=VARCHAR}, #{tokenExpire,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.javashitang.sso.server.po.UserInfo">
     insert into user_info
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
-      </if>
-      <if test="userId != null">
-        user_id,
       </if>
       <if test="username != null">
         username,
@@ -66,9 +62,6 @@
       <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="userId != null">
-        #{userId,jdbcType=VARCHAR},
-      </if>
       <if test="username != null">
         #{username,jdbcType=VARCHAR},
       </if>
@@ -92,9 +85,6 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.javashitang.sso.server.po.UserInfo">
     update user_info
     <set>
-      <if test="userId != null">
-        user_id = #{userId,jdbcType=VARCHAR},
-      </if>
       <if test="username != null">
         username = #{username,jdbcType=VARCHAR},
       </if>
@@ -118,8 +108,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.javashitang.sso.server.po.UserInfo">
     update user_info
-    set user_id = #{userId,jdbcType=VARCHAR},
-      username = #{username,jdbcType=VARCHAR},
+    set username = #{username,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
       token = #{token,jdbcType=VARCHAR},
       token_expire = #{tokenExpire,jdbcType=TIMESTAMP},

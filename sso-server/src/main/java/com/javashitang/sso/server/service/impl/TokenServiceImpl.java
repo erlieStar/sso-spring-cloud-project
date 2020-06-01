@@ -6,7 +6,6 @@ import com.javashitang.sso.server.service.inf.TokenService;
 import com.javashitang.tool.MD5Util;
 import com.javashitang.tool.OperStatus;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -30,6 +29,10 @@ public class TokenServiceImpl implements TokenService {
     public static final String COOKIE_DOMAIN = "*.javashitang.com";
     public static final Integer TOKEN_EXPIRE_HOUR = 8;
 
+    /**
+     * token可以直接设置到cookie中，也可以通过json放回
+     * 前端可以通过cookie，header，cookie等多种方式将token带回来
+     */
     @Override
     public OperStatus login(String username, String password, HttpServletResponse response) {
         log.info("login param username: {}", username);
@@ -59,6 +62,8 @@ public class TokenServiceImpl implements TokenService {
         UserInfo update = new UserInfo();
         update.setId(userInfo.getId());
         update.setToken("");
+        update.setTokenExpire(LocalDateTime.now());
+        userInfoMapper.updateByPrimaryKeySelective(update);
         return OperStatus.newSuccess();
     }
 
@@ -82,6 +87,7 @@ public class TokenServiceImpl implements TokenService {
 
     private void setCookie(Integer maxAge, String token, HttpServletResponse response) {
         Cookie cookie = new Cookie(COOKIE_NAME, token);
+        cookie.setMaxAge(maxAge);
         cookie.setDomain(COOKIE_DOMAIN);
         cookie.setPath("/");
         response.addCookie(cookie);

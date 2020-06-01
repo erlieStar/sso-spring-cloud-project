@@ -1,10 +1,10 @@
 package com.javashitang.autoconfigure.sso;
 
 import com.javashitang.tool.OperStatus;
+import lombok.Data;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,9 +13,9 @@ import javax.servlet.http.HttpServletResponse;
  * @author lilimin
  * @since 2020-05-30
  */
+@Data
 public class LoginInterceptor extends HandlerInterceptorAdapter {
 
-    @Resource
     private SsoServerClient ssoServerClient;
 
     public static final String LOGIN_COOKIE_NAME = "loginToken";
