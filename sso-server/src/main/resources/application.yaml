@@ -1,15 +1,15 @@
 server:
-  port: 7001
+  port: 9001
 
 spring:
   application:
-    name: sso-sample
+    name: sso-server
   datasource:
     druid:
-      url:  jdbc:mysql://www.javashitang.com:3306/test?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&allowPublicKeyRetrieval=true&verifyServerCertificate=false&useSSL=false
+      url:  jdbc:mysql://myhost:3306/test?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&allowPublicKeyRetrieval=true&verifyServerCertificate=false&useSSL=false
       driver-class-name:  com.mysql.jdbc.Driver
-      username:  root
-      password:  peng2014
+      username:  test
+      password:  test
       initial-size:  10
       max-active:  50
       min-idle:  10
@@ -27,3 +27,7 @@ eureka:
   client:
     service-url:
       defaultZone: http://localhost:7001/eureka
+
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml

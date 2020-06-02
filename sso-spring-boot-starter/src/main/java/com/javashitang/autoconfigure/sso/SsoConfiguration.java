@@ -2,7 +2,9 @@ package com.javashitang.autoconfigure.sso;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.cloud.openfeign.EnableFeignClients;;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.handler.MappedInterceptor;
 
@@ -15,16 +17,15 @@ import java.util.Set;
  * @since 2020-05-30
  */
 @ConditionalOnProperty(value = "javashitang.sso.enable", havingValue = "true", matchIfMissing = true)
+@EnableFeignClients(basePackages = "com.javashitang.autoconfigure.sso")
+@ComponentScan("com.javashitang.autoconfigure.sso")
 public class SsoConfiguration {
 
     @Resource
-    private SsoServerClient ssoServerClient;
+    private LoginInterceptor loginInterceptor;
 
     @Bean
-    protected HandlerInterceptor loginInterceptor(JavashitangLoginInterceptorProperties properties) {
-
-        LoginInterceptor loginInterceptor = new LoginInterceptor();
-        loginInterceptor.setSsoServerClient(ssoServerClient);
+    protected HandlerInterceptor ssoInterceptor(JavashitangLoginInterceptorProperties properties) {
         return new MappedInterceptor(properties.getIncludePattern(), properties.getExcludePattern(), loginInterceptor);
     }
 
@@ -33,6 +34,7 @@ public class SsoConfiguration {
 
         public Set<String> includePattern = new HashSet<>();
         public Set<String> excludePattern = new HashSet<>();
+        public boolean enable = true;
 
         public String[] getIncludePattern() {
             return includePattern.toArray(new String[]{});
@@ -48,6 +50,14 @@ public class SsoConfiguration {
 
         public void setExcludePattern(Set<String> excludePattern) {
             this.excludePattern = excludePattern;
+        }
+
+        public boolean isEnable() {
+            return enable;
+        }
+
+        public void setEnable(boolean enable) {
+            this.enable = enable;
         }
     }
 }

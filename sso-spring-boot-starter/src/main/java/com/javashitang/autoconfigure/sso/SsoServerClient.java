@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 @FeignClient(name = "SSO-SERVER", fallbackFactory = SsoServerClientFactory.class)
 public interface SsoServerClient {
 
-    @RequestMapping("login")
+    @RequestMapping("api/auth/login")
     OperStatus login(@RequestParam("username") String username, @RequestParam("password") String password);
 
-    @RequestMapping("token")
+    @RequestMapping("api/auth/logout")
     OperStatus logout(@RequestParam("token") String token);
 
-    @RequestMapping("checkAuth")
+    @RequestMapping("api/auth/checkAuth")
     OperStatus checkAuth(@RequestParam("token") String token);
 }

@@ -1,5 +1,5 @@
 server:
-  port: 7001
+  port: 8001
 
 spring:
   application:
@@ -13,5 +13,6 @@ eureka:
 
 javashitang:
   sso:
-    includePattern: /manage/getInfo
-    encludePattern:
+    enable: true
+    includePattern:
+    excludePattern:

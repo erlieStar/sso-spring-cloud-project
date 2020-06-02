@@ -16,17 +16,17 @@ public class SsoServerClientFactory implements FallbackFactory<SsoServerClient> 
         return new SsoServerClient() {
             @Override
             public OperStatus login(String username, String password) {
-                return OperStatus.newError("登陆失败");
+                return OperStatus.newError("调用用户服务【登陆】失败");
             }
 
             @Override
             public OperStatus logout(String token) {
-                return OperStatus.newError("登出失败");
+                return OperStatus.newError("调用用户服务【登出】失败");
             }
 
             @Override
             public OperStatus checkAuth(String token) {
-                return OperStatus.newError("验证用户登陆信息失败");
+                return OperStatus.newError("验证用户服务【校验token】失败");
             }
         };
     }
