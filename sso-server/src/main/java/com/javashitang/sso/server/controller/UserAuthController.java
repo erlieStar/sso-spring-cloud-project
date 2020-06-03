@@ -34,11 +34,11 @@ public class UserAuthController {
     }
 
     @RequestMapping("logout")
-    public OperStatus logout(@RequestParam("token") String token) {
+    public OperStatus logout(@RequestParam("token") String token, HttpServletResponse response) {
         if (StringUtils.isBlank(token)) {
             return OperStatus.newParamInvalid("token不能为空");
         }
-        return tokenService.logout(token);
+        return tokenService.logout(token, response);
     }
 
     /**

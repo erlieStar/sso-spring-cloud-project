@@ -12,7 +12,7 @@ public interface TokenService {
 
     OperStatus login(String username, String password, HttpServletResponse response);
 
-    OperStatus logout(String token);
+    OperStatus logout(String token, HttpServletResponse response);
 
     OperStatus checkAuth(String token);
 }

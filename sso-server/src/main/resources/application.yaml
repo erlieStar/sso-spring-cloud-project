@@ -31,3 +31,8 @@ eureka:
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml
+
+# 设置这个，主要是方便同域下的单点登陆，如多个系统在user.javashitang.com，task.javashitang.com
+# 就可以设置为.javashitang.com，这里设置为localhost
+cookie:
+  domain: localhost

@@ -14,5 +14,5 @@ eureka:
 javashitang:
   sso:
     enable: true
-    includePattern:
+    includePattern: /task/getInfo,/manage/getInfo
     excludePattern:

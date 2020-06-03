@@ -6,6 +6,7 @@ import com.javashitang.sso.server.service.inf.TokenService;
 import com.javashitang.tool.MD5Util;
 import com.javashitang.tool.OperStatus;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -26,8 +27,10 @@ public class TokenServiceImpl implements TokenService {
     private UserInfoMapper userInfoMapper;
 
     public static final String COOKIE_NAME = "loginToken";
-    public static final String COOKIE_DOMAIN = "*.javashitang.com";
     public static final Integer TOKEN_EXPIRE_HOUR = 8;
+
+    @Value("${cookie.domain}")
+    private String cookieDomain;
 
     /**
      * token可以直接设置到cookie中，也可以通过json放回
@@ -46,6 +49,7 @@ public class TokenServiceImpl implements TokenService {
         String token = this.genToken(username);
         UserInfo update = new UserInfo();
         update.setId(userInfo.getId());
+        update.setToken(token);
         update.setTokenExpire(LocalDateTime.now().plusHours(TOKEN_EXPIRE_HOUR));
         userInfoMapper.updateByPrimaryKeySelective(update);
         this.setCookie(TOKEN_EXPIRE_HOUR * 1000, token, response);
@@ -53,7 +57,7 @@ public class TokenServiceImpl implements TokenService {
     }
 
     @Override
-    public OperStatus logout(String token) {
+    public OperStatus logout(String token, HttpServletResponse response) {
         log.info("logout param token: {}", token);
         UserInfo userInfo = userInfoMapper.selectByToken(token);
         if (userInfo == null) {
@@ -64,6 +68,7 @@ public class TokenServiceImpl implements TokenService {
         update.setToken("");
         update.setTokenExpire(LocalDateTime.now());
         userInfoMapper.updateByPrimaryKeySelective(update);
+        this.setCookie(1, "expire_now", response);
         return OperStatus.newSuccess();
     }
 
@@ -74,8 +79,8 @@ public class TokenServiceImpl implements TokenService {
     public OperStatus checkAuth(String token) {
         log.info("checkAuth param token: {}", token);
         UserInfo userInfo = userInfoMapper.selectByToken(token);
-        if (userInfo == null) {
-            return OperStatus.newError("token错误");
+        if (userInfo == null || userInfo.getTokenExpire().isBefore(LocalDateTime.now())) {
+            return OperStatus.newError("校验失败");
         }
         return OperStatus.newSuccess();
     }
@@ -88,7 +93,7 @@ public class TokenServiceImpl implements TokenService {
     private void setCookie(Integer maxAge, String token, HttpServletResponse response) {
         Cookie cookie = new Cookie(COOKIE_NAME, token);
         cookie.setMaxAge(maxAge);
-        cookie.setDomain(COOKIE_DOMAIN);
+        cookie.setDomain(cookieDomain);
         cookie.setPath("/");
         response.addCookie(cookie);
     }
