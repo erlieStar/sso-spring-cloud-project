@@ -2,7 +2,7 @@
 
 ### 项目准备
 
-依赖了lz写的工具类库，但是暂时还没有发布到maven仓库，所以可以手动install到本地仓库
+依赖了lz写的工具类库，但是暂时还没有发布到maven仓库，可以手动install到本地仓库
 
 
 ```shell
@@ -10,6 +10,10 @@ git clone git@github.com:erlieStar/common-tool.git
 git checkout v2.0
 mvn clean install -DskipTests=true
 ```
+
+在sso-server模块下的resources目录下，有初始的表和数据，因为没有写注册的接口，所以初始化了一个用户，用户名和密码都是root
+
+项目中配置的数据库名，用户名，密码都是test，按需修改
 
 ### 模块介绍
 
