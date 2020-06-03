@@ -1,5 +1,7 @@
 ## 单点登陆组件
 
+[博客介绍](https://blog.csdn.net/zzti_erlie/article/details/105991909) 
+
 ### 项目准备
 
 依赖了lz写的工具类库，但是暂时还没有发布到maven仓库，可以手动install到本地仓库
@@ -28,6 +30,8 @@ mvn clean install -DskipTests=true
 ### 使用介绍
 
 注意：单点登陆的server端需要和client端需要注册到一个eureka集群上
+
+测试的时候先启动eureka，再启动server端和client端
 
 加入单点登陆服务只需要加入如下starter
 
