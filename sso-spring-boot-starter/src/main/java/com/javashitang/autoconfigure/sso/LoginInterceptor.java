@@ -1,5 +1,6 @@
 package com.javashitang.autoconfigure.sso;
 
+import com.javashitang.tool.JsonConvert;
 import com.javashitang.tool.OperStatus;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeansException;
@@ -46,6 +47,11 @@ public class LoginInterceptor extends HandlerInterceptorAdapter implements Appli
                 if (!result.isSuccess()) {
                     ResponseWrite.writeResult(response, result);
                     return false;
+                } else {
+                    // 将用户信息放到本次请求中
+                    String str = JsonConvert.obj2Str(result.getData());
+                    UserInfo userInfo = JsonConvert.str2Obj(str, UserInfo.class);
+                    ParseUserInfo.setToRequest(request, userInfo);
                 }
                 return true;
             }

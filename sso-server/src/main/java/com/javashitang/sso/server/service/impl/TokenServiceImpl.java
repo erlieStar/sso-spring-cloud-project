@@ -82,7 +82,7 @@ public class TokenServiceImpl implements TokenService {
         if (userInfo == null || userInfo.getTokenExpire().isBefore(LocalDateTime.now())) {
             return OperStatus.newError("校验失败");
         }
-        return OperStatus.newSuccess();
+        return OperStatus.newSuccess(userInfo);
     }
 
     private String genToken(String username) {

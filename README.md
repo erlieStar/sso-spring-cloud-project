@@ -9,6 +9,7 @@
 
 ```shell
 git clone git@github.com:erlieStar/common-tool.git
+cd common-tool
 git checkout v2.0
 mvn clean install -DskipTests=true
 ```

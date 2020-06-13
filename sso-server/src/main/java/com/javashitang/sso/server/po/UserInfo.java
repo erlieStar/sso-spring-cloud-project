@@ -1,5 +1,6 @@
 package com.javashitang.sso.server.po;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,13 +15,17 @@ public class UserInfo {
 
     private String username;
 
+    @JsonIgnore
     private String password;
 
     private String token;
 
+    @JsonIgnore
     private LocalDateTime tokenExpire;
 
+    @JsonIgnore
     private LocalDateTime createTime;
 
+    @JsonIgnore
     private LocalDateTime updateTime;
 }
