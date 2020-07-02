@@ -29,7 +29,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <mysql.version>5.1.35</mysql.version>
+        <mysql.version>8.0.16</mysql.version>
         <pagehelper.version>1.2.3</pagehelper.version>
         <lombok.version>1.16.18</lombok.version>
         <tool.version>1.1</tool.version>
